@@ -15,6 +15,8 @@ Built-in Package Versions(it is recommended to use these pinned versions if need
 - pillow: **9.3.0**
 - scipy: **1.7.2**
 
+Bundled Python version: **3.9**
+
 ### Usage
 
 Repository with your app should contain:
@@ -29,7 +31,7 @@ After that when you call `generate-binaries.yml` it will first install & build a
 and after that starts **Nuitka** to make one file standalone build.
 At the end, it will create(or update) a GitHub release with produced binaries.
 
-The whole thing is split into two yaml files because it can take a very long time.
+The whole thing is split into two yaml files because it can take a very long time to generate binaries under emulation.
 
 You should modify second yml file(`publish-release`) according to your project, add the other stuff you needed.
 
