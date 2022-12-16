@@ -114,7 +114,9 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Get Bin Prefix
-        run: echo BIN_PREFIX="$(sed -n "s/<id>\(.*\)<\/id>/\\1/p" ./appinfo/info.xml | tr -d '\t')" >> $GITHUB_ENV
+        run: |
+          APP_ID="$(sed -n "s/<id>\(.*\)<\/id>/\\1/p" ./appinfo/info.xml | tr -d '\t' | sed -n 1p)"
+          echo BIN_PREFIX="$APP_ID" >> $GITHUB_ENV      
 
       - name: ARM64 prepare
         if: matrix.build_arch == 'arm64'
