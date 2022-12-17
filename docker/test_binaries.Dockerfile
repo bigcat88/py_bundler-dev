@@ -4,9 +4,10 @@ FROM $BASE_IMAGE
 COPY . /cpa
 
 ARG BIN_NAME
+ARG TEST_ARGS
 
 RUN \
   cd /cpa && \
   ls -la . && \
   chmod +x $BIN_NAME && \
-  ./$BIN_NAME --info
+  ./$BIN_NAME TEST_ARGS
