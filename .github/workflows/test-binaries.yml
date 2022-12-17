@@ -20,29 +20,29 @@ jobs:
       matrix:
         i: [
           { "os": "amazonlinux", "ver": "latest", "arch": "amd64" },
-#          { "os": "amazonlinux", "ver": "latest", "arch": "arm64" },
-#          { "os": "oraclelinux", "ver": "8", "arch": "amd64" },
-#          { "os": "oraclelinux", "ver": "8", "arch": "arm64" },
-#          { "os": "fedora", "ver": "35", "arch": "amd64" },
-#          { "os": "fedora", "ver": "37", "arch": "amd64" },
-#          { "os": "centos", "ver": "7", "arch": "amd64" },
-#          { "os": "centos", "ver": "7", "arch": "arm64" },
-#          { "os": "debian", "ver": "10", "arch": "amd64" },
-#          { "os": "debian", "ver": "10", "arch": "arm64" },
-#          { "os": "debian", "ver": "11", "arch": "amd64" },
-#          { "os": "debian", "ver": "11", "arch": "arm64" },
-#          { "os": "debian", "ver": "11", "arch": "arm/v7" },
-#          { "os": "alpine", "ver": "3.14", "arch": "amd64" },
-#          { "os": "alpine", "ver": "3.14", "arch": "arm64" },
-#          { "os": "alpine", "ver": "3.14", "arch": "arm/v7" },
-#          { "os": "alpine", "ver": "3.15", "arch": "amd64" },
-#          { "os": "alpine", "ver": "3.15", "arch": "arm64" },
-#          { "os": "alpine", "ver": "3.16", "arch": "amd64" },
-#          { "os": "alpine", "ver": "3.16", "arch": "arm64" },
-#          { "os": "alpine", "ver": "3.16", "arch": "arm/v7" },
-#          { "os": "alpine", "ver": "3.17", "arch": "amd64" },
-#          { "os": "alpine", "ver": "3.17", "arch": "arm64" },
-#          { "os": "alpine", "ver": "3.17", "arch": "arm/v7" },
+          { "os": "amazonlinux", "ver": "latest", "arch": "arm64" },
+          { "os": "oraclelinux", "ver": "8", "arch": "amd64" },
+          { "os": "oraclelinux", "ver": "8", "arch": "arm64" },
+          { "os": "fedora", "ver": "35", "arch": "amd64" },
+          { "os": "fedora", "ver": "37", "arch": "amd64" },
+          { "os": "centos", "ver": "7", "arch": "amd64" },
+          { "os": "centos", "ver": "7", "arch": "arm64" },
+          { "os": "debian", "ver": "10", "arch": "amd64" },
+          { "os": "debian", "ver": "10", "arch": "arm64" },
+          { "os": "debian", "ver": "11", "arch": "amd64" },
+          { "os": "debian", "ver": "11", "arch": "arm64" },
+          { "os": "debian", "ver": "11", "arch": "arm/v7" },
+          { "os": "alpine", "ver": "3.14", "arch": "amd64" },
+          { "os": "alpine", "ver": "3.14", "arch": "arm64" },
+          { "os": "alpine", "ver": "3.14", "arch": "arm/v7" },
+          { "os": "alpine", "ver": "3.15", "arch": "amd64" },
+          { "os": "alpine", "ver": "3.15", "arch": "arm64" },
+          { "os": "alpine", "ver": "3.16", "arch": "amd64" },
+          { "os": "alpine", "ver": "3.16", "arch": "arm64" },
+          { "os": "alpine", "ver": "3.16", "arch": "arm/v7" },
+          { "os": "alpine", "ver": "3.17", "arch": "amd64" },
+          { "os": "alpine", "ver": "3.17", "arch": "arm64" },
+          { "os": "alpine", "ver": "3.17", "arch": "arm/v7" },
         ]
 
     steps:
@@ -80,7 +80,7 @@ jobs:
           APP_VERSION="$(sed -n "s/<version>\(.*\)<\/version>/\\1/p" ./appinfo/info.xml | tr -d '\t' | sed -n 1p)"
           BIN_NAME="$APP_ID"_"$BIN_TYPE"
           echo BIN_NAME="$BIN_NAME" >> $GITHUB_ENV
-          wget $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/${{ inputs.version_prefix }}$APP_VERSION/$BIN_NAME.gz
+          wget -q $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/${{ inputs.version_prefix }}$APP_VERSION/$BIN_NAME.gz
           gzip -d $BIN_NAME.gz
 
       - name: Run tests
@@ -90,4 +90,4 @@ jobs:
             --build-arg BASE_IMAGE="${{ matrix.i['os'] }}:${{ matrix.i['ver'] }}" \
             --build-arg BIN_NAME="${{ env.BIN_NAME }}" \
             --build-arg TEST_ARGS="${{ inputs.test_args }}" \
-            -f docker/test_release_full.Dockerfile .
+            -f docker/test_binaries.Dockerfile .
