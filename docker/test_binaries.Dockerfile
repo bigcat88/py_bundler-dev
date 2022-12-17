@@ -10,4 +10,4 @@ RUN \
   cd /cpa && \
   ls -la . && \
   chmod +x $BIN_NAME && \
-  ./$BIN_NAME TEST_ARGS
+  ./$BIN_NAME $TEST_ARGS
