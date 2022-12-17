@@ -1,7 +1,7 @@
 name: Test binaries
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       test_args:
         required: false
