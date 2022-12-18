@@ -26,6 +26,9 @@ RUN \
 FROM base as framework
 
 RUN \
+  python3 -m pip install cryptography==38.0.4
+
+RUN \
   python3 -m pip install pynacl==1.5.0
 
 RUN \
