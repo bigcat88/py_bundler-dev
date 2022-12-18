@@ -6,6 +6,4 @@ apk add --no-cache \
   jpeg-dev \
   lcms2-dev \
   openjpeg-dev \
-  gfortran \
-  openblas-dev \
-  py3-scipy
+  openblas-dev
