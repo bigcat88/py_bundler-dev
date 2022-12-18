@@ -26,6 +26,18 @@ RUN \
 FROM base as framework
 
 RUN \
+  python3 -m pip install pynacl==1.5.0
+
+RUN \
+  python3 -m pip install cryptography==38.0.4
+
+RUN \
+  python3 -m pip install pymysql==1.0.2
+
+RUN \
+  python3 -m pip install pg8000==1.29.4
+
+RUN \
   python3 -m pip install pillow==9.3.0
 
 RUN \
@@ -33,6 +45,3 @@ RUN \
 
 RUN \
   python3 -m pip install scipy==1.7.2
-
-RUN \
-  python3 -m pip install nc_py_api==0.0.8

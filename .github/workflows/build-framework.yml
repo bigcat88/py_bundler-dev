@@ -72,6 +72,7 @@ jobs:
           platforms: ${{ env.BUILD_PLATFORM }}
           push: true
           cache-from: type=gha,scope=build-manylinux-${{ matrix.build_arch }}
+          cache-to: type=gha,mode=max,scope=build-manylinux-${{ matrix.build_arch }}
           tags: ghcr.io/${{ github.repository }}/manylinux_${{ matrix.build_arch }}:latest
           target: framework
 
@@ -135,5 +136,6 @@ jobs:
           platforms: ${{ env.BUILD_PLATFORM }}
           push: true
           cache-from: type=gha,scope=build-musllinux-${{ matrix.build_arch }}
+          cache-to: type=gha,mode=max,scope=build-musllinux-${{ matrix.build_arch }}
           tags: ghcr.io/${{ github.repository }}/musllinux_${{ matrix.build_arch }}:latest
           target: framework
