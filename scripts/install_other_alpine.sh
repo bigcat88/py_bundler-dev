@@ -1,7 +1,6 @@
 #!/bin/sh
 
 apk add --no-cache \
-  libffi-dev \
   fribidi-dev \
   harfbuzz-dev \
   jpeg-dev \
