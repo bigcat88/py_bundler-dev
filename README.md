@@ -6,16 +6,17 @@ It uses [Nuitka](https://github.com/Nuitka/Nuitka) for this.
 
 ### Versions:
 
-Bundler version: **0.0.2**
+Bundler version: **0.0.4**
 
 Built-in Package Versions(it is recommended to use these pinned versions if needed):
 
-- nc-py-api: **0.0.7**
-- numpy: **1.21.4**
+- nc-py-api: **0.0.8**
 - pillow: **9.3.0**
+- numpy: **1.21.4**
 - scipy: **1.7.2**
 
 Bundled Python version: **3.9**
+Nuitka version: **1.2.7**
 
 ### Usage
 
