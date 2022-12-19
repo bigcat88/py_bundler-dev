@@ -21,7 +21,7 @@ Nc-Py-API DB dependencies versions:
 - pymysql: **1.0.2**
 - pg8000: **1.29.4**
 
-Bundled Python version: **3.9.15**
+Bundled Python version: **3.9.16**
 Nuitka version: **1.2.7**
 
 ### Usage
