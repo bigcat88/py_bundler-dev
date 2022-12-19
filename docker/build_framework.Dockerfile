@@ -16,11 +16,7 @@ RUN \
   rm /install_other.sh
 
 RUN \
-  python3 -m pip install --upgrade pip && \
-  python3 -m pip install --upgrade setuptools wheel ordered-set
-
-RUN \
-  python3 -m pip install nuitka==1.2.7
+  python3 -m pip install pip==22.3.1 wheel==0.38.4 ordered-set==4.1.0
 
 
 FROM base as framework

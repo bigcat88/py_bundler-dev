@@ -6,4 +6,6 @@ apk add --no-cache \
   jpeg-dev \
   lcms2-dev \
   openjpeg-dev \
-  openblas-dev
+  openblas-dev \
+  gettext \
+  libintl
