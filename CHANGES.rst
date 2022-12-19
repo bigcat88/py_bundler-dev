@@ -1,7 +1,7 @@
 Changelog (Py-Bundler)
 ======================
 
-0.0.3 (2022-12-18)
+0.0.3 (2022-12-19)
 ------------------
 
 - Nuitka updated and pinned to ``1.2.7`` version
