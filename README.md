@@ -11,8 +11,8 @@ Bundler version: **0.0.3**
 Built-in Package Versions(it is recommended to use these pinned versions if needed):
 
 - pillow: **9.3.0**
-- numpy: **1.23.5**
-- scipy: **1.9.1**
+- numpy: **1.21.4**
+- scipy: **1.7.2**
 
 Nc-Py-API DB dependencies versions:
 
