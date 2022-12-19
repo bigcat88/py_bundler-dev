@@ -14,7 +14,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        build_arch: [ "arm64", "amd64" ]
+#        build_arch: [ "arm64", "amd64" ]
+        build_arch: [ "amd64" ]
         build_linux: [ manylinux, musllinux ]
 
     steps:
