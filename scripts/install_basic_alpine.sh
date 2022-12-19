@@ -1,17 +1,20 @@
 #!/bin/sh
 
 apk add --no-cache \
-  libffi-dev \
-  wget && \
-  wget -q https://www.openssl.org/source/openssl-1.1.1s.tar.gz && \
-  tar -xzf openssl-1.1.1s.tar.gz && \
-  cd openssl-1.1.1s && \
-  ./config no-shared --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
-  make && make install_sw && \
-  cd .. && \
-  wget https://www.python.org/ftp/python/3.9.15/Python-3.9.15.tgz && \
-  tar xvf Python-3.9.15.tgz && \
-  cd Python-3.9.15 && \
-  ./configure --with-openssl=/usr/local/ssl --enable-optimizations && \
-  make install && \
+  libtool \
+  git \
+  gcc \
+  m4 \
+  perl \
+  alpine-sdk \
+  autoconf \
+  automake \
+  cmake \
+  nasm \
+  python3-dev \
+  py3-pip && \
+  echo "**** Installing Patchelf ****" && \
+  git clone -b 0.17.0 https://github.com/NixOS/patchelf.git && \
+  cd patchelf && \
+  ./bootstrap.sh && ./configure && make && make check && make install && \
   cd ..

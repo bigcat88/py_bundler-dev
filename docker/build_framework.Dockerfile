@@ -37,7 +37,7 @@ RUN \
   python3 -m pip install pillow==9.3.0
 
 RUN \
-  python3 -m pip install numpy==1.23.5
+  python3 -m pip install numpy==1.21.4
 
 RUN \
-  python3 -m pip install scipy==1.9.1
+  python3 -m pip install scipy==1.7.2
