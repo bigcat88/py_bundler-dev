@@ -54,7 +54,7 @@ jobs:
           platforms: linux/${{ matrix.build_arch }}
           push: false
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          outputs: type=image,push=false
+          outputs: type=image,push=true
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
           target: release
 
