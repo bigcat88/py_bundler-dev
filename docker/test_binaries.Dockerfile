@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
-COPY . /cpa
+COPY ./cp_binaries /cpa
 
 ARG BIN_NAME
 ARG TEST_ARGS
