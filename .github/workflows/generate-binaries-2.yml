@@ -52,7 +52,7 @@ jobs:
           build-args: |
             BUILD_IMG=ghcr.io/bigcat88/py_bundler-dev/${{ matrix.build_linux }}_${{ matrix.build_arch }}:latest
           platforms: linux/${{ matrix.build_arch }}
-          push: false
+          push: true
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           outputs: type=docker
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
