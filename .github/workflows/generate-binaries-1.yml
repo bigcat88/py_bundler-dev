@@ -15,7 +15,7 @@ jobs:
       fail-fast: true
       matrix:
         build_arch: [ "amd64" ]
-        build_linux: [ manylinux, musllinux ]
+        build_linux: [ musllinux ]
 
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Release Image
+      - name: Install dependencies
         uses: docker/build-push-action@v3
         with:
           context: .

@@ -5,13 +5,14 @@ COPY ./requirements.txt /
 
 RUN \
   python3 -m pip install -r requirements.txt && \
-  rm requirements.txt
-
-
-FROM release as binaries
+  rm requirements.txt && \
+  rm -rf ~/.cache
 
 RUN \
-  python3 -m pip install nuitka==1.2.7
+  python3 -m pip install nuitka==1.2.7 && \
+  rm -rf ~/.cache
+
+FROM release as binaries
 
 COPY . /build
 

@@ -15,7 +15,7 @@ jobs:
       fail-fast: true
       matrix:
         build_arch: [ "amd64" ]
-        build_linux: [ manylinux, musllinux ]
+        build_linux: [ musllinux ]
 
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
         if: matrix.build_linux == 'musllinux'
         run: echo TEST_DISTRO_NAME="alpine:3.14" >> $GITHUB_ENV
 
-      - name: Build Release Binaries
+      - name: Build Image
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -54,32 +54,34 @@ jobs:
           platforms: linux/${{ matrix.build_arch }}
           push: false
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          cache-to: type=gha,mode=min,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          outputs: type=docker,dest=/tmp/binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}.tar
+          outputs: type=image,push=false
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
-          target: binaries
+          target: release
 
-      - name: Get Release Binaries
+      - name: Build binary
         run: |
-          docker load < /tmp/binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}.tar
-          id=$(docker create binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest)
-          docker cp $id:/main.bin ${{ env.BIN_NAME }}
-          gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz
+          docker ps -a
+#          docker load < /tmp/binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}.tar
+#          id=$(docker create binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest)
+#          docker run --mount type=bind,src=/data,dst=/data \
+#          $id python3 -m nuitka --plugin-enable=numpy --standalone --onefile main.py
+#          docker cp $id:/main.bin ${{ env.BIN_NAME }}
+#          gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz
 
-      - name: Uploading binary
-        uses: actions/upload-artifact@v3
-        with:
-          name: cp_binaries
-          path: ./${{ env.BIN_NAME }}.gz
-          if-no-files-found: error
-
-      - name: Test binary
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/${{ matrix.build_arch }}
-          push: false
-          file: py_bundler/docker/release_info.Dockerfile
-          build-args: |
-            BIN_NAME=${{ env.BIN_NAME }}
-            DISTRO_NAME=${{ env.TEST_DISTRO_NAME }}
+#      - name: Uploading binary
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: cp_binaries
+#          path: ./${{ env.BIN_NAME }}.gz
+#          if-no-files-found: error
+#
+#      - name: Test binary
+#        uses: docker/build-push-action@v3
+#        with:
+#          context: .
+#          platforms: linux/${{ matrix.build_arch }}
+#          push: false
+#          file: py_bundler/docker/release_info.Dockerfile
+#          build-args: |
+#            BIN_NAME=${{ env.BIN_NAME }}
+#            DISTRO_NAME=${{ env.TEST_DISTRO_NAME }}
