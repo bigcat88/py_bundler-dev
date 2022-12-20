@@ -58,7 +58,6 @@ jobs:
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           outputs: type=image
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
-          target: release
 
       - name: Build binary
         run: |
