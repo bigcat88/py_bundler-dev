@@ -19,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: target
       - uses: actions/checkout@v3
         with:
           repository: bigcat88/py_bundler-dev
@@ -31,7 +33,7 @@ jobs:
 
       - name: Get Bin Prefix
         run: |
-          APP_ID="$(sed -n "s/<id>\(.*\)<\/id>/\\1/p" ./appinfo/info.xml | tr -d '\t' | sed -n 1p)"
+          APP_ID="$(sed -n "s/<id>\(.*\)<\/id>/\\1/p" ./target/appinfo/info.xml | tr -d '\t' | sed -n 1p)"
           echo BIN_NAME="$APP_ID"_"$BIN_SUFFIX" >> $GITHUB_ENV
         env:
           BIN_SUFFIX: ${{ matrix.build_linux }}_${{ matrix.build_arch }}
@@ -54,17 +56,16 @@ jobs:
           platforms: linux/${{ matrix.build_arch }}
           push: false
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          outputs: type=docker
+          outputs: type=image
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
           target: release
 
       - name: Build binary
         run: |
+          ls -la /
+          ls -la /target
           docker images -a
-          docker ps -a
-#          docker load < /tmp/binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}.tar
-#          id=$(docker create binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest)
-#          docker run --mount type=bind,src=/data,dst=/data \
+#          docker run --mount type=bind,src=/target,dst=/target
 #          $id python3 -m nuitka --plugin-enable=numpy --standalone --onefile main.py
 #          docker cp $id:/main.bin ${{ env.BIN_NAME }}
 #          gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz

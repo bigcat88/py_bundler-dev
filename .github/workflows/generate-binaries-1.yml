@@ -40,4 +40,3 @@ jobs:
           push: false
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           cache-to: type=gha,mode=min,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          target: release
