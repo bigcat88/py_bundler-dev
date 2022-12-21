@@ -58,7 +58,7 @@ jobs:
         with:
           workflow: generate-binaries-2.yml
           workflow_conclusion: ""
-          name: "*$BIN_TYPE*"
+          name: "*${{ env.BIN_TYPE }}*"
 
       - name: Preparations
         run: |
