@@ -61,23 +61,19 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/nu_cache
-          key: nuitka-cache-${{ hashFiles('requirements.txt') }}
+          key: nu-cache-${{ matrix.build_linux }}-${{ matrix.build_arch }}-${{ hashFiles('requirements.txt') }}
 
       - name: Build binary
         run: |
           mkdir -p nu_cache
-          ls -la .
           docker run \
             --mount type=bind,src=${{ github.workspace }}/nu_cache,dst=/root/.cache/Nuitka \
             --mount type=bind,src=${{ github.workspace }},dst=/project \
             --workdir /project \
             binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest \
             /bin/bash -c "python3 -m nuitka --plugin-enable=numpy --standalone --onefile main.py"
-          ls -la .
           mv main.bin ${{ env.BIN_NAME }}
-          ls -la .
           gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz
-          ls -la .
 
       - name: Uploading binary
         uses: actions/upload-artifact@v3
