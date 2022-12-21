@@ -65,6 +65,7 @@ jobs:
 
       - name: Build binary
         run: |
+          mkdir -p ${{ github.workspace }}/../nu_cache
           ls -la /home/runner/work/py-bundler-usage-demo
           ls -la /home/runner/work/py-bundler-usage-demo/py-bundler-usage-demo
           docker images -a
