@@ -58,7 +58,7 @@ jobs:
         with:
           workflow: generate-binaries-2.yml
           workflow_conclusion: ""
-          name: cp_binaries/demo_${{ env.BIN_TYPE }}.gz
+          name: demo_${{ env.BIN_TYPE }}.gz
 
       - name: Preparations
         run: |
