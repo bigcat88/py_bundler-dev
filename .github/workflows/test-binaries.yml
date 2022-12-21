@@ -58,11 +58,9 @@ jobs:
         with:
           workflow: generate-binaries-2.yml
           workflow_conclusion: ""
-          name: demo_${{ env.BIN_TYPE }}.gz
 
       - name: Preparations
         run: |
-          ls -la
           APP_ID="$(sed -n "s/<id>\(.*\)<\/id>/\\1/p" ./appinfo/info.xml | tr -d '\t' | sed -n 1p)"
           BIN_NAME="$APP_ID"_"$BIN_TYPE"
           echo BIN_NAME="$BIN_NAME" >> $GITHUB_ENV
