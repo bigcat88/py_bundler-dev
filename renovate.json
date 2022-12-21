@@ -5,6 +5,6 @@
     ":disableDependencyDashboard"
   ],
   "ignorePaths": [
-    "**/docker/**",
+    "**/docker/**"
   ]
 }
