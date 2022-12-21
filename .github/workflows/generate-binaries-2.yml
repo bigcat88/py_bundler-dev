@@ -60,17 +60,15 @@ jobs:
       - name: Nuitka cache
         uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/../nu_cache
+          path: ${{ github.workspace }}/nu_cache
           key: nuitka-cache-${{ hashFiles('requirements.txt') }}
 
       - name: Build binary
         run: |
-          mkdir -p ${{ github.workspace }}/../nu_cache
-          ls -la /home/runner/work/py-bundler-usage-demo
-          ls -la /home/runner/work/py-bundler-usage-demo/py-bundler-usage-demo
-          docker images -a
+          mkdir -p nu_cache
+          ls -la .
           docker run \
-            --mount type=bind,src=${{ github.workspace }}/../nu_cache,dst=/root/.cache/Nuitka \
+            --mount type=bind,src=${{ github.workspace }}/nu_cache,dst=/root/.cache/Nuitka \
             --mount type=bind,src=${{ github.workspace }},dst=/project \
             --workdir /project \
             binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest \
