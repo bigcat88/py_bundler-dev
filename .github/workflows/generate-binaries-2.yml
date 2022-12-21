@@ -54,42 +54,46 @@ jobs:
           platforms: linux/${{ matrix.build_arch }}
           push: false
           cache-from: type=gha,scope=binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          outputs: type=image
+          outputs: type=docker
           tags: binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest
+
+      - name: Nuitka cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/../nu_cache
+          key: nuitka-cache-${{ hashFiles('requirements.txt') }}
 
       - name: Build binary
         run: |
-          ls -la .
-          ls -la /home/runner/work
           ls -la /home/runner/work/py-bundler-usage-demo
           ls -la /home/runner/work/py-bundler-usage-demo/py-bundler-usage-demo
           docker images -a
-#          docker run --mount type=bind,\
-#            src=/home/runner/work/py-bundler-usage-demo/py-bundler-usage-demo,\
-#            dst=/project \
-#            --workdir /project \
-#
-#
-#
-#
-#          $id python3 -m nuitka --plugin-enable=numpy --standalone --onefile main.py
-#          docker cp $id:/main.bin ${{ env.BIN_NAME }}
-#          gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz
+          docker run \
+            --mount type=bind,src=${{ github.workspace }}/../nu_cache,dst=/root/.cache/Nuitka \
+            --mount type=bind,src=${{ github.workspace }},dst=/project \
+            --workdir /project \
+            binaries-${{ matrix.build_linux }}-${{ matrix.build_arch }}:latest \
+            /bin/bash -c "python3 -m nuitka --plugin-enable=numpy --standalone --onefile main.py"
+          ls -la .
+          mv main.bin ${{ env.BIN_NAME }}
+          ls -la .
+          gzip -9 -c ${{ env.BIN_NAME }} > ${{ env.BIN_NAME }}.gz
+          ls -la .
 
-#      - name: Uploading binary
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: cp_binaries
-#          path: ./${{ env.BIN_NAME }}.gz
-#          if-no-files-found: error
-#
-#      - name: Test binary
-#        uses: docker/build-push-action@v3
-#        with:
-#          context: .
-#          platforms: linux/${{ matrix.build_arch }}
-#          push: false
-#          file: py_bundler/docker/release_info.Dockerfile
-#          build-args: |
-#            BIN_NAME=${{ env.BIN_NAME }}
-#            DISTRO_NAME=${{ env.TEST_DISTRO_NAME }}
+      - name: Uploading binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: cp_binaries
+          path: ./${{ env.BIN_NAME }}.gz
+          if-no-files-found: error
+
+      - name: Test binary
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/${{ matrix.build_arch }}
+          push: false
+          file: py_bundler/docker/release_info.Dockerfile
+          build-args: |
+            BIN_NAME=${{ env.BIN_NAME }}
+            DISTRO_NAME=${{ env.TEST_DISTRO_NAME }}

@@ -20,7 +20,7 @@ jobs:
       fail-fast: true
       matrix:
         build_arch: [ "amd64" ]
-        build_linux: [ manylinux, musllinux ]
+        build_linux: [ musllinux ]
 
     steps:
       - uses: actions/checkout@v3
