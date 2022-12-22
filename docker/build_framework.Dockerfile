@@ -40,14 +40,14 @@ RUN \
   python3 -m pip install numpy==1.23.5 && rm -rf ~/.cache
 
 
-FROM framework_scipy as framework_pywt
+FROM framework_numpy as framework_pywt
 
 RUN \
   python3 -m pip install Cython==0.29.32 setuptools==64.0.3 && \
   python3 -m pip install pywavelets==1.4.1 --no-deps && rm -rf ~/.cache
 
 
-FROM framework_numpy as framework_scipy
+FROM framework_pywt as framework_scipy
 
 RUN \
   python3 -m pip install scipy==1.9.3 && rm -rf ~/.cache
@@ -60,3 +60,6 @@ RUN \
 
 RUN \
   python3 -m pip install nuitka==1.2.7 && rm -rf ~/.cache
+
+RUN \
+  python3 -m pip list
