@@ -44,7 +44,7 @@ RUN \
   python3 -m pip install pywavelets==1.4.1 --no-deps && rm -rf ~/.cache
 
 RUN \
-   python -m pip install filterpy==1.4.5 && rm -rf ~/.cache
+   python3 -m pip install filterpy==1.4.5 && rm -rf ~/.cache
 
 RUN \
   python3 -m pip install pillow==9.3.0 && rm -rf ~/.cache
