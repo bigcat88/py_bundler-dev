@@ -9,3 +9,8 @@ apk add --no-cache \
   openjpeg-dev \
   gfortran \
   openblas-dev
+
+apk add --no-cache \
+  py3-numpy \
+  py3-scipy \
+  py3-opencv

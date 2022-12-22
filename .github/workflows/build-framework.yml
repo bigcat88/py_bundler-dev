@@ -1,9 +1,9 @@
-name: Build Framework Final
+name: Build Framework
 
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [ Build Framework SciPy ]
+    workflows: [ Build Base Image ]
     types:
       - completed
 
@@ -47,7 +47,7 @@ jobs:
       - name: MuslLinux prepare
         if: matrix.build_linux == 'musllinux'
         run: |
-          echo BUILD_IMG="alpine:3.15" >> $GITHUB_ENV
+          echo BUILD_IMG="alpine:3.17" >> $GITHUB_ENV
           echo BASE_INIT_1="install_basic_alpine.sh" >> $GITHUB_ENV
           echo BASE_INIT_2="install_other_alpine.sh" >> $GITHUB_ENV
 
@@ -72,4 +72,4 @@ jobs:
           cache-from: type=gha,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           cache-to: type=gha,mode=max,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           tags: ghcr.io/${{ github.repository }}/${{ matrix.build_linux }}_${{ matrix.build_arch }}:latest
-          target: framework_zzz
+          target: framework
