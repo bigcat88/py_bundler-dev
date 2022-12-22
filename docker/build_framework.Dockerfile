@@ -40,7 +40,7 @@ RUN \
   python3 -m pip install numpy==1.21.4 && rm -rf ~/.cache
 
 RUN \
-  python3 -m pip install scipy==1.7.2 && rm -rf ~/.cache
+  python3 -m pip install scipy==1.9.3 && rm -rf ~/.cache
 
 RUN \
   python3 -m pip install nuitka==1.2.7 && rm -rf ~/.cache
