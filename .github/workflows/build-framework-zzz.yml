@@ -1,9 +1,9 @@
-name: Build Framework Image
+name: Build Framework Final
 
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [ Build Base Image ]
+    workflows: [ Build Framework SciPy ]
     types:
       - completed
 
@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        build_arch: [ "arm64", "amd64" ]
+        build_arch: [ "amd64" ]
         build_linux: [ manylinux, musllinux ]
 
     steps:
@@ -72,4 +72,4 @@ jobs:
           cache-from: type=gha,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           cache-to: type=gha,mode=max,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           tags: ghcr.io/${{ github.repository }}/${{ matrix.build_linux }}_${{ matrix.build_arch }}:latest
-          target: framework
+          target: framework_zzz

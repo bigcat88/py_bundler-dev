@@ -19,7 +19,7 @@ RUN \
   python3 -m pip install pip==22.3.1 wheel==0.38.4 ordered-set==4.1.0 && rm -rf ~/.cache
 
 
-FROM base as framework
+FROM base as framework_db
 
 RUN \
   python3 -m pip install cryptography==38.0.4 && rm -rf ~/.cache
@@ -33,14 +33,30 @@ RUN \
 RUN \
   python3 -m pip install pg8000==1.29.4 && rm -rf ~/.cache
 
-RUN \
-  python3 -m pip install pillow==9.3.0 && rm -rf ~/.cache
+
+FROM framework_db as framework_numpy
 
 RUN \
-  python3 -m pip install numpy==1.21.4 && rm -rf ~/.cache
+  python3 -m pip install numpy==1.23.5 && rm -rf ~/.cache
+
+
+FROM framework_scipy as framework_pywt
+
+RUN \
+  python3 -m pip install Cython==0.29.32 setuptools==64.0.3 && \
+  python3 -m pip install pywavelets==1.4.1 --no-deps && rm -rf ~/.cache
+
+
+FROM framework_numpy as framework_scipy
 
 RUN \
   python3 -m pip install scipy==1.9.3 && rm -rf ~/.cache
+
+
+FROM framework_wavelets as framework_zzz
+
+RUN \
+  python3 -m pip install pillow==9.3.0 && rm -rf ~/.cache
 
 RUN \
   python3 -m pip install nuitka==1.2.7 && rm -rf ~/.cache

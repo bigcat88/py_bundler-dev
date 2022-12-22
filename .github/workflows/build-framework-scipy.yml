@@ -1,22 +1,23 @@
-name: Build Base Image
+name: Build Framework SciPy
 
 on:
-  push:
-    paths:
-      - 'docker/build_framework.Dockerfile'
-      - 'scripts/*.*'
   workflow_dispatch:
+  workflow_run:
+    workflows: [ Build Framework PyWt ]
+    types:
+      - completed
 
 concurrency:
   group: build-base-framework
   cancel-in-progress: true
 
 jobs:
-  build_base:
+  build_framework:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     name: ${{ matrix.build_linux }} • ${{ matrix.build_arch }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         build_arch: [ "amd64" ]
         build_linux: [ manylinux, musllinux ]
@@ -50,7 +51,7 @@ jobs:
           echo BASE_INIT_1="install_basic_alpine.sh" >> $GITHUB_ENV
           echo BASE_INIT_2="install_other_alpine.sh" >> $GITHUB_ENV
 
-      - name: Build Base Image
+      - name: Build Production Image
         uses: docker/build-push-action@v3
         with:
           context: ./scripts
@@ -63,4 +64,4 @@ jobs:
           push: false
           cache-from: type=gha,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
           cache-to: type=gha,mode=max,scope=build-${{ matrix.build_linux }}-${{ matrix.build_arch }}
-          target: base
+          target: framework_scipy

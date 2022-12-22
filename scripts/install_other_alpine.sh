@@ -8,5 +8,4 @@ apk add --no-cache \
   lcms2-dev \
   openjpeg-dev \
   gfortran \
-  openblas-dev \
-  py3-numpy
+  openblas-dev
