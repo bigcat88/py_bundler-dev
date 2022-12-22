@@ -50,7 +50,7 @@ RUN \
   python3 -m pip install pillow==9.3.0 && rm -rf ~/.cache
 
 RUN \
-  python3 -m pip install opencv-python==4.6.0 --no-deps && rm -rf ~/.cache
+  python3 -m pip install opencv-python==4.6.0.66 --no-deps && rm -rf ~/.cache
 
 RUN \
   python3 -m pip install nuitka==1.2.7 && rm -rf ~/.cache
