@@ -13,4 +13,5 @@ apk add --no-cache \
 apk add --no-cache \
   py3-numpy \
   py3-scipy \
+  py3-matplotlib \
   py3-opencv
