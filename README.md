@@ -16,6 +16,7 @@ Built-in Package Versions(it is recommended to use these pinned versions if need
 - PyWavelets: **1.4.1**
 - matplotlib: **3.6.2**
 - filterpy: **1.4.5**
+- OpenCV: **4.6.0** (Note: on Alpine it will be not visible for PIP)
 
 Nc-Py-API DB dependencies versions:
 
