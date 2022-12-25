@@ -1,6 +1,14 @@
 Changelog (Py-Bundler)
 ======================
 
+0.0.6 (2022-12-25)
+------------------
+
+- Alpine image moved to `3.17` version, with musl lib `1.2.3` version that in most cases compatible with Alpine `3.14`
+- Python moved to `3.10.9` version(all code still should support `3.9` version of python)
+- Added preinstalled `matplotlib`, `pywavelets`, `filterpy`
+- Updated numpy to `1.23.4`, scipy to `1.9.3`
+
 0.0.5 (2022-12-21)
 ------------------
 
